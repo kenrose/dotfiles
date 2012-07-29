@@ -1,0 +1,51 @@
+# Define your shell aliases in this .aliases file.
+# Do not put anything else (e.g. stty, setenv, mesg) into this file.
+
+# e.g.
+# alias a.out './a.out'
+
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+  colorflag="--color"
+else # macOS `ls`
+  colorflag="-G"
+fi
+
+# Always use color output for `ls`
+alias ls="command ls ${colorflag}"
+
+export LS_COLORS='di=01;33:mi=01;41:or=01;41'
+export LSCOLORS='DxGxcxdxCxegedabagacad'
+
+# Console Navigation
+alias dir="ls -F ${colorflag} -k -s"
+alias "cd.."="cd .."
+alias cpcd="echo -ne \$(pwd) | pbcopy"
+
+# Scala and Emacs
+alias sbt='JAVA_OPTS="-Xmx2560M -Xms512M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=512M" sbt'
+alias ec='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n'
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Canonical hex dump; some systems have this symlinked
+command -v hd > /dev/null || alias hd="hexdump -C"
+
+# OS X has no `md5sum`, so use `md5` as a fallback
+command -v md5sum > /dev/null || alias md5sum="md5"
+
+# OS X has no `sha1sum`, so use `shasum` as a fallback
+command -v sha1sum > /dev/null || alias sha1sum="shasum"
+
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote(sys.argv[1]);"'
+
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Lock the screen (when going AFK)
+alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"

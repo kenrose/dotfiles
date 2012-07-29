@@ -1,0 +1,24 @@
+pathappend() {
+  for ARG in "$@"
+  do
+    if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+      PATH="${PATH:+"$PATH:"}$ARG"
+    fi
+  done
+}
+
+pathprepend() {
+  for ARG in "$@"
+  do
+    if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+      PATH="$ARG${PATH:+":$PATH"}"
+    fi
+  done
+}
+
+pathprepend $HOME/bin
+pathappend $HOME/.rvm/bin # Add RVM to PATH for scripting
+pathappend $HOME/.jenv/bin # Add JEnv to PATH for scripting
+
+export ACTIVATOR_HOME=$HOME/bin/activator-1.3.5-minimal
+pathappend $ACTIVATOR_HOME
