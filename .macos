@@ -1,0 +1,29 @@
+###############################################################################
+# Fix font rendering for Emacs
+###############################################################################
+
+defaults write org.gnu.Emacs FontBackend ns
+defaults write org.gnu.Emacs AppleAntiAliasingThreshold 100
+
+###############################################################################
+# SSD-specific tweaks
+###############################################################################
+
+# Disable the sudden motion sensor as it’s not useful for SSDs
+sudo pmset -a sms 0
+
+###############################################################################
+# Trackpad, mouse, keyboard
+###############################################################################
+
+# Trackpad: map bottom right corner to right-click
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
+
+
+
+# TODO Find out how to set shortcuts for Mission Control to Command-F9
+
+# TODO Get Spectacle settings from the other macbook
