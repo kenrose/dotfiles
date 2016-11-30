@@ -162,9 +162,8 @@
 (setq default-frame-alist initial-frame-alist)
 
 (if (string= window-system "ns")
-    (add-to-list 'default-frame-alist '(font . "-apple-Bitstream_Vera_Sans_Mono-medium-normal-normal-*-11-*-*-*-m-0-iso10646-1")))
-
-;(add-to-list 'default-frame-alist '(font . "-apple-Bitstream_Vera_Sans_Mono-medium-normal-normal--12*"))
+    (set-face-attribute 'default nil
+			:family "Bitstream Vera Sans Mono" :height 110 :weight 'normal))
 
 (setq mac-option-key-is-meta nil)
 (setq mac-command-key-is-meta t)
